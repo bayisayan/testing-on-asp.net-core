@@ -1,0 +1,18 @@
+﻿@model IEnumerable< Exam>;
+@{
+    ViewData["Title"] = "Upsert";
+}
+<ul>
+    @foreach (var item in Model)
+   {
+       <li>
+            ViewBag.Name
+            @item;
+       </li>
+       
+   }
+</ul>
+
+
+
+@ViewBag.Name

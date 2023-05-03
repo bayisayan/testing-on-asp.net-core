@@ -1,0 +1,9 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Bayys.TFOMSRX\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Bayys.TFOMSRX\\.nuget\\packages",
+      "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+    ]
+  }
+}

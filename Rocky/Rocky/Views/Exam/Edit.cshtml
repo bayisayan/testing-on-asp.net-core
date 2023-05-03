@@ -1,0 +1,121 @@
+﻿@model Rocky.Models.Exam
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form method="post" asp-action="Edit">
+    <input asp-for="QId" hidden />
+    <div class="border p-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Добавить категорию</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="CategoryId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="CategoryId" asp-items="@ViewBag.CategoryDropDown" class="form-control">
+                            <option selected>Выбор темы</option>
+                        </select>
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Question"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Question" class="form-control" />
+                        <span asp-validation-for="Question" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                @*<div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="OptionsId"></label>
+                    </div>
+                    <div class="col-8">
+                        <select asp-for="OptionsId" asp-items="@ViewBag.OptionsDropDown" class="form-control">
+                            <option selected>Выбор категорий</option>
+                        </select>
+                        <span asp-validation-for="Options" class="text-danger"></span>
+                    </div>
+
+                </div>*@
+
+
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="options1"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="options1" class="form-control"/>
+                        <span asp-validation-for="options1" class="text-danger"></span>
+                    </div>
+
+                </div>
+                 <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="options2"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="options2" class="form-control"/>
+                         <span asp-validation-for="options2" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="options3"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="options3" class="form-control" />
+                        <span asp-validation-for="options3" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="options4"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="options4" class="form-control" />
+                        <span asp-validation-for="options4" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Correctans"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="Correctans" class="form-control" />
+                        <span asp-validation-for="Correctans" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-100" value="Обновить"/>
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">Назад</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                @* Keep this empty *@
+            </div>
+        </div>
+    </div>
+
+</form>
+

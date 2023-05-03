@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Rocky.Models.Quez>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+
+    <script>
+
+        function CheckAnswer() {
+            var myArray = [];
+        @foreach (var d in Model)
+        {
+            @:myArray.push("@d.QuestionNumber");
+        }
+         
+            }           for (var i = 0; i < myArray.length; i++) {
+                var right = $("input[type='hidden'][name=" + myArray[i] + "]").val();
+                $("input[type='radio'][name=" + myArray[i] + "]").parent().removeClass("right");
+                $("input[type='radio'][name=" + myArray[i] + "]").parent().removeClass("wrong");
+                $("input[type='radio'][name=" + myArray[i] + "]").each(function () {
+                    if ($(this).is(":checked")) {
+                        if ($(this).val() == right) {
+                            $(this).parent().addClass("right")
+                        } else {
+                            $(this).parent().addClass("wrong");
+                        }
+                    }
+                });
+
+        }
+    </script>
+
+}
+
+    <style>
+        .right {
+            background-color: green;
+        }
+
+        .wrong {
+            background-color: red;
+        }
+    </style>
+
+
+    <p>Select an answer: </p>
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <label>Question @item.QuestionNumber :</label>
+        <div class="col-md-10">
+            @foreach (var option in item.Options)
+            {
+                <input type="radio" value="@option.Index" name="@item.QuestionNumber" /> @option.Option
+            }
+            <input type="hidden" value="@item.RightAnswer" name="@item.QuestionNumber" />
+        </div>
+    </div>
+}
+
+<input type="button" value="Check" onclick="CheckAnswer()" />

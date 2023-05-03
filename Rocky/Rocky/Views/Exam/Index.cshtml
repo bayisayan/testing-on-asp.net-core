@@ -1,0 +1,205 @@
+﻿
+
+@model IEnumerable<Rocky.Models.Exam>
+@if (User.IsInRole(Rocky.WC.AdminRole))
+{
+    <div class="text-center">
+        <h1 class="display-4">Тестирование по ИБ</h1>
+    </div>
+
+    <div class = "container p-3">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h2 class="text-primary">Список вопросов</h2>
+            </div>
+            <div class="col-6 text-right">
+                <a asp-controller="Exam" asp-action="Create" class="btn btn-primary">
+                    Создать новый вопрос
+                </a>
+            </div>
+        </div>
+
+        <br />
+        <br />
+       
+        @if (Model.Count() > 0)
+        {
+            <table class="table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        
+                        <th>
+                            Название темы
+                        </th>
+                        <th>
+                            Название вопроса
+                        </th>
+
+                        <th>
+                            Вариант ответа 1
+                        </th>
+
+                        <th>
+                            Вариант ответа 2
+                        </th>
+
+                        <th>
+                            Вариант ответа 3
+                        </th>
+
+                        <th>
+                            Вариант ответа 4
+                        </th>
+
+                        <th>
+                            Правильный ответ
+                        </th>
+
+                        <th>
+                        </th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            
+                            <td width=50%>@obj.Category.Name</td>
+                            <td width=50%>@obj.Question</td>
+                            <td>@obj.options1</td>
+                            <td>@obj.options2</td>
+                            <td>@obj.options3</td>
+                            <td>@obj.options4</td>
+                            <td>@obj.Correctans</td>
+
+                            <td class="text-center">
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Exam" asp-route-Id="@obj.QId" asp-action="Edit" class="btn btn-primary mx-2">
+                                        Редактировать категорию
+                                    </a>
+                                    <a asp-controller="Exam" asp-route-Id="@obj.QId" asp-action="Delete" class="btn btn-danger mx-2">
+                                        Удалить категорию
+                                    </a>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Категории не существуют</p>
+        }
+    </div>
+}
+else if((User.IsInRole(Rocky.WC.CustomerRole)))
+{
+  
+<form asp-controller="Exam" asp-action="Upsert1">
+@foreach (var obj in Model)
+{
+    <table>
+          
+        <tr>
+            <td>Тема - @obj.Category.Name</td>
+        </tr>
+        <tr>
+                <td>Вопрос №@obj.QId) Вопрос - @obj.Question ?</td>
+        </tr>
+        <tr>
+            <td>
+
+                        
+
+                        <input id="@obj.QId" type="radio" name="@obj.Correctans" class="rb" alt="@obj.CategoryId" value="@obj.options1" /> @obj.options1
+                <br />
+                        <input id="@obj.QId" type="radio" name="@obj.Correctans" class="rb" alt="@obj.CategoryId" value="@obj.options2" /> @obj.options2
+                <br />
+                        <input id="@obj.QId" type="radio" name="@obj.Correctans" class="rb" alt="@obj.CategoryId" value="@obj.options3" /> @obj.options3
+                <br />
+                        <input id="@obj.QId" type="radio" name="@obj.Correctans" class="rb" alt="@obj.CategoryId" value="@obj.options4" /> @obj.options4
+                
+
+            </td>
+        </tr>
+    </table>
+    <br />
+}
+       @* <input type="submit" value="Отправить" />*@
+</form>
+
+<br />
+<button id="but1" type="button" value="Submit" class="btn-success" aria-label="erer" onclick="displayresults();">ОТПРАВИТЬ</button>
+<br />
+<br />
+
+<a id='lbl' class='lbl'></a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function()
+    {
+
+        
+        $("#but1").click(function()
+        {
+            val1 =$(".rb").value;
+            $(".rb").show();
+            $(".rb").attr("disabled", true);
+            $("#ans").attr("hidden", true);
+                $(".nav-item").attr("hidden", true)
+                $(".navbar-brand").attr("hidden", true)
+        });
+         
+
+
+
+
+    });
+    function displayresults(){
+        document.getElementById("lbl").innerHTML="";
+        var Count=0;
+        var per = 0;
+       
+        
+        var result = document.getElementsByTagName('input');
+        for (i =0; i < result.length; i++){
+
+            if (result[i].checked) {
+                
+                    
+                    document.getElementById("lbl").innerHTML +="Вопрос №" + result[i].id + ") " + "Вы выбрали: " + result[i].value + "<br/>" + "Вопрос №" + result[i].id + ") " + "Правильный ответ: " + result[i].name + "<br/>" + "<br/>";
+                if (result[i].value == result[i].name){
+                    Count=Count+1;
+                } 
+                
+            //if (result[i].type=="hidden"){
+            //document.getElementById("lbl").innerHTML += "Правильный ответ" + result[i].value + "<br/>";
+            //}
+                    per = (Count / result[i].id) * 100;
+        }
+
+                
+       }
+       
+       
+        document.getElementById("lbl").innerHTML += "<hr> Количество правильных ответов - " + Count;
+        document.getElementById("lbl").innerHTML += "<hr> Процент правильных ответов - "+per+" %";
+
+    }
+       
+      
+
+        
+
+</script>
+
+}
+else{
+   
+    <h2>Авторизуйтесь пожалуйста</h2>
+}
